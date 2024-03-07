@@ -1,6 +1,6 @@
-NAME =  Converter
+NAME =  Serializer
 
-SRC		=	main.cpp 
+SRC		=	main.cpp Serializer.cpp
 
 CC 		= c++
 
