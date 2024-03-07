@@ -6,14 +6,14 @@
 # include <cstdlib>
 # include <climits>
 
-class Scalar
+class ScalarConverter
 {
     private:
-        Scalar();
-        Scalar(const Scalar & copy);
-        Scalar& operator=(const Scalar & copy);
+        ScalarConverter();
+        ScalarConverter(const ScalarConverter & copy);
+        ScalarConverter& operator=(const ScalarConverter & copy);
     public:
-        ~Scalar();
+        ~ScalarConverter();
         static void convert(const std::string & str);
 };
 #endif

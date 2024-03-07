@@ -1,13 +1,13 @@
-#include "Scalar.hpp"
+#include "ScalarConverter.hpp"
 
-Scalar::Scalar() {}
-Scalar& Scalar::operator=(const Scalar & other) 
+ScalarConverter::ScalarConverter() {}
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter & other) 
 { 
     (void)other; 
     return *this; 
 }
 
-void Scalar::convert(const std::string& str)
+void ScalarConverter::convert(const std::string& str)
 {
     std::string specialType[6] = {
         "-inff", "+inff", "nanf",
