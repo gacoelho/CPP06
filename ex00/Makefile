@@ -1,6 +1,6 @@
-NAME =  ScalarConvert
+NAME =  Converter
 
-SRC		=	main.cpp
+SRC		=	main.cpp Scalar.cpp
 
 CC 		= c++
 

@@ -1,58 +1,85 @@
 #include "Scalar.hpp"
 
-
-template char Scalar::convert(const std::string &);
-template int Scalar::convert(const std::string &);
-template float Scalar::convert(const std::string &);
-template double Scalar::convert(const std::string &);
-Scalar::Scalar(){}
-
-Scalar::Scalar(const Scalar & copy)
-{
-    *this = copy;
+Scalar::Scalar() {}
+Scalar& Scalar::operator=(const Scalar & other) 
+{ 
+    (void)other; 
+    return *this; 
 }
 
-Scalar & Scalar::operator=(const Scalar & copy)
+void Scalar::convert(const std::string& str)
 {
-    (void)copy;
-    return *this;
-}
+    std::string specialType[6] = {
+        "-inff", "+inff", "nanf",
+        "-inf", "+inf", "nan"
+    };
 
-Scalar::~Scalar(){}
+    std::string c = "";
+    int i = 0;
+    float f = 0;
+    double d = 0;
 
-template<typename s>s Scalar::convert(const std::string &str)
-{
-    s result;
-
-    if(std::is_same <s, char>::value)
+    if (str.size() ==1  && isprint(str[0]) && !std::isdigit(str[0]))
     {
-        try {result =std::stoi(str);}
-        catch(const std::exception& e) {eturn(-1);}
-        return (result);
+        c = str[0];
+        std::cout << "char: " << c << std::endl;
+        std::cout << "int: " << static_cast<int>(c[0]) <<  std::endl;
+        std::cout << "float: " << static_cast<float>(c[0]) << ".0f" << std::endl;
+        std::cout << "double: " << static_cast<double>(c[0]) << ".0" << std::endl;
+        return;
     }
-
-    if(std::is_same <s, int>::value)
+    else
     {
-        try {result =std::stoi(str);}
-        catch(const std::exception& e) {eturn(-1);}
-        return (result);
-    }
+        i = std::atoi(str.c_str());
+        if(str[str.length() - 1] == 'f')
+        {
+            f = std::atof(str.c_str());
+            d = static_cast<double>(f);
+        }
+        else
+        {
+            d = std::atof(str.c_str());
+            f = static_cast<float>(d);
+        }
+        for (int j = 0; j < 6; ++j)
+        {
+            if(str == specialType[i])
+            {
+                c = "Imposible";
+                break;
+            }
+        }
+        if(c == "" && std::isprint(i))
+        {
+            c ="'";
+            c += static_cast<char>(i);
+            c += "'";
+        }
+        else if(c == "")
+            c = "Non displayable";
 
-    if(std::is_same <s, float>::value)
-    {
-        float r;
-        try {r =std::stof(str);}
-        catch(const std::exception& e) {eturn(-1);}
-        return (r);
+        std::cout << "char: " << c << std::endl;
+        if (c == "Imposible")
+            std::cout << "int: Imposible" << std::endl;
+        else
+            std::cout << "int: " << i << std::endl;
+        if (c == "Imposible" && f == 0)
+        {
+            std::cout << "float: Imposible" << std::endl;
+            std::cout << "double: Imposible" << std::endl;
+        }
+        else
+        {
+            if (c != "Imposible" && f - static_cast<int>(f) == 0)
+            {
+                std::cout << "float: " << f <<".0f" << std::endl;
+                std::cout << "double: " << d << ".0" << std::endl;
+            }
+            else
+            {
+                std::cout << "float: " << f << "f" << std::endl;
+                std::cout << "double: " << d <<  std::endl;
+            }
+        }
     }
-
-    if(std::is_same <s, double>::value)
-    {
-        double r;
-        try {r =std::stod(str);}
-        catch(const std::exception& e) {eturn(-1);}
-        return (r);
-    }
-    result = -1;
-    return result;
 }
